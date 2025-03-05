@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        /* Allgemeine Stile */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .projekt {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .projekt h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .projekt p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .projekt button {
+            background-color: #dc3545;
+            margin-top: 10px;
+        }
+
+        .projekt button:hover {
+            background-color: #c82333;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        .error {
+            color: #dc3545;
+            margin-top: 10px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Projekt hinzufügen</h2>
+        <form id="projektForm">
+            <input type="text" id="name" placeholder="Projektname" required>
+            <textarea id="beschreibung" placeholder="Beschreibung" required></textarea>
+            <input type="date" id="startdatum" required>
+            <input type="date" id="enddatum" required>
+            <input type="text" id="lehrer" placeholder="Lehrer" required>
+            <input type="number" id="platzanzahl" placeholder="Platzanzahl" required>
+            <button type="submit">Projekt hinzufügen</button>
+        </form>
+        <h2>Verfügbare Projekte</h2>
+        <div id="projekteListe"></div>
+
+        <button class="back-button" onclick="window.history.back();">Zurück</button>
+
+        <p id="errorMessage" class="error"></p>
+
+        <div class="footer">
+            <p>&copy; 2025 Projektverwaltung</p>
+        </div>
+    </div>
+
+    <script>
+        // Funktion zum Formatieren des Datums
+        function formatDate(isoDate) {
+            const date = new Date(isoDate);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`; // Format: DD.MM.YYYY
+        }
+
+        // Funktion zum Laden der Projekte
+        async function loadProjects() {
+            try {
+                const response = await fetch('http://localhost:3000/projekte');
+                if (!response.ok) {
+                    throw new Error('Fehler beim Laden der Projekte');
+                }
+                const projekte = await response.json();
+                const projekteListe = document.getElementById('projekteListe');
+                projekteListe.innerHTML = '';
+
+                projekte.forEach(projekt => {
+                    const projektDiv = document.createElement('div');
+                    projektDiv.className = 'projekt';
+                    projektDiv.innerHTML = `
+                        <h3>${projekt.name}</h3>
+                        <p>${projekt.beschreibung}</p>
+                        <p>Startdatum: ${formatDate(projekt.startdatum)}</p>
+                        <p>Enddatum: ${formatDate(projekt.enddatum)}</p>
+                        <p>Lehrer: ${projekt.lehrer}</p>
+                        <p>Platzanzahl: ${projekt.platzanzahl}</p>
+                        <button onclick="deleteProject(${projekt.id})">Löschen</button>
+                    `;
+                    projekteListe.appendChild(projektDiv);
+                });
+            } catch (error) {
+                console.error('Fehler:', error);
+                document.getElementById('errorMessage').textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+            }
+        }
+
+        // Funktion zum Löschen eines Projekts
+        async function deleteProject(id) {
+            if (!confirm('Bist du sicher, dass du dieses Projekt löschen möchtest?')) return;
+
+            try {
+                const response = await fetch(`http://localhost:3000/projekte/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Projekt erfolgreich gelöscht!');
+                    loadProjects(); // Liste aktualisieren
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.message || 'Fehler beim Löschen des Projekts');
+                }
+            } catch (error) {
+                console.error('Fehler:', error);
+                alert('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+            }
+        }
+
+        // Funktion zum Hinzufügen eines Projekts
+        document.getElementById('projektForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const beschreibung = document.getElementById('beschreibung').value;
+            const lehrer = document.getElementById('lehrer').value;
+            const platzanzahl = document.getElementById('platzanzahl').value;
+            const startdatum = document.getElementById('startdatum').value;
+            const enddatum = document.getElementById('enddatum').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/projekte', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, beschreibung, lehrer, platzanzahl, startdatum, enddatum })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert(data.message || 'Projekt erfolgreich hinzugefügt!');
+                    document.getElementById('projektForm').reset();
+                    loadProjects();
+                } else {
+                    console.error('Fehler:', data);
+                    document.getElementById('errorMessage').textContent = 'Fehler: ' + data.message;
+                }
+            } catch (error) {
+                console.error('Fehler:', error);
+                document.getElementById('errorMessage').textContent = 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+            }
+        });
+
+        // Projekte laden, wenn die Seite geladen wird
+        window.onload = loadProjects;
+    </script>
+
+</body>
+</html>

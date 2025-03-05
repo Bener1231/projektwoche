@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projektwoche Anmeldung</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Allgemeine Einstellungen */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2d6a4f;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 30px;
+            color: #2d6a4f;
+        }
+
+        /* Formular Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        input, select, button {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: #4c9a2a;
+        }
+
+        button {
+            background-color: #4c9a2a;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3b7c20;
+        }
+
+        /* Admin Login Button */
+        .admin-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .admin-login a {
+            text-decoration: none;
+            color: #4c9a2a;
+            font-weight: 600;
+        }
+
+        .admin-login a:hover {
+            text-decoration: underline;
+        }
+
+        /* Projekt Styling */
+        .projekt {
+            background-color: #ffffff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .projekt h3 {
+            margin-top: 0;
+            color: #2d6a4f;
+        }
+
+        .projekt p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Projektwoche Anmeldung</h1>
+        <h2>Bitte melde dich zu einem Projekt an</h2>
+        
+        <form id="anmeldeForm">
+            <input type="text" id="vorname" placeholder="Vorname" required>
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="email" id="email" placeholder="E-Mail" required>
+            <select id="projekt" required>
+                <option value="">Projekt wählen...</option>
+            </select>
+            <button type="submit">Anmelden</button>
+        </form>
+
+        <h2>Verfügbare Projekte</h2>
+        <div id="projekteListe"></div>
+
+        <!-- Admin-Login-Button -->
+        <div class="admin-login">
+            <a href="admin_login.html"> Admin Login</a>
+        </div>
+    </div>
+
+    <script>
+        // Funktion, um ein Datum in das Format DD.MM.YYYY umzuwandeln
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Monate sind 0-basiert
+            const year = date.getFullYear();
+
+            return `${day}.${month}.${year}`;
+        }
+
+        // Projekte in das Dropdown-Menü laden und anzeigen
+        async function loadProjects() {
+            try {
+                const response = await fetch("http://localhost:3000/projekte");
+                if (!response.ok) {
+                    throw new Error('Fehler beim Laden der Projekte');
+                }
+                const projekte = await response.json();
+                const select = document.getElementById("projekt");
+                const projekteListe = document.getElementById("projekteListe");
+
+                select.innerHTML = '<option value="">Projekt wählen...</option>';
+                projekteListe.innerHTML = '';
+
+                projekte.forEach(projekt => {
+                    let option = document.createElement("option");
+                    option.value = projekt.id;
+                    option.textContent = projekt.name;
+                    select.appendChild(option);
+
+                    const projektDiv = document.createElement("div");
+                    projektDiv.className = "projekt";
+                    projektDiv.innerHTML = `
+                        <h3>${projekt.name}</h3>
+                        <p>${projekt.beschreibung}</p>
+                        <p>Startdatum: ${formatDate(projekt.startdatum)}</p>
+                        <p>Enddatum: ${formatDate(projekt.enddatum)}</p>
+                        <p>Lehrer: ${projekt.lehrer}</p>
+                        <p>Platzanzahl: ${projekt.platzanzahl}</p>
+                    `;
+                    projekteListe.appendChild(projektDiv);
+                });
+            } catch (error) {
+                console.error('Fehler: ', error);
+            }
+        }
+
+        // Projekte laden, wenn die Seite geladen wird
+        window.onload = loadProjects;
+
+        // Anmeldeformular absenden
+        document.getElementById("anmeldeForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            const vorname = document.getElementById("vorname").value;
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const projekt = document.getElementById("projekt").value;
+
+            const response = await fetch("http://localhost:3000/anmelden", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ vorname, name, email, projekt })
+            });
+
+            if (response.ok) {
+                alert("Erfolgreich angemeldet!");
+            } else {
+                const errorData = await response.json();
+                alert(`Fehler: ${errorData.message}`);
+            }
+        });
+    </script>
+
+</body>
+</html>

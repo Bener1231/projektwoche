@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projekt Hinzufügen</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        input, textarea, button {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #4c9a2a;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #3b7c20;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            margin-top: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Projekt Hinzufügen</h2>
+        <form id="addProjektForm">
+            <input type="text" id="projekt_name" placeholder="Projektname" required>
+            <textarea id="projekt_beschreibung" placeholder="Beschreibung" required></textarea>
+            <textarea id="lehrer" placeholder="Lehrer" required></textarea>
+            <textarea id="platzanzahl" placeholder="platzanzahl" required></textarea>
+            <input type="date" id="projekt_startdatum" required>
+            <input type="date" id="projekt_enddatum" required>
+            <button type="submit">Projekt hinzufügen</button>
+        </form>
+
+        <button class="back-button" onclick="window.location.href='/';">Zurück zur Startseite</button>
+    </div>
+
+    <!-- Nur die externe JavaScript-Datei einbinden -->
+    <script src="add_projekt.js"></script>
+</body>
+</html>
