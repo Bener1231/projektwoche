@@ -1,0 +1,132 @@
+[debug] [2025-03-07T20:58:14.348Z] ----------------------------------------------------------------------
+[debug] [2025-03-07T20:58:14.352Z] Command:       D:\Benni2\node.exe C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-03-07T20:58:14.352Z] CLI Version:   13.33.0
+[debug] [2025-03-07T20:58:14.352Z] Platform:      win32
+[debug] [2025-03-07T20:58:14.353Z] Node Version:  v22.14.0
+[debug] [2025-03-07T20:58:14.353Z] Time:          Fri Mar 07 2025 21:58:14 GMT+0100 (Mitteleuropäische Normalzeit)
+[debug] [2025-03-07T20:58:14.353Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-07T20:58:14.363Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-07T20:58:14.363Z] > authorizing via signed-in user (benjamin.zschinschky1@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Benni2\Projektwoche
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-03-07T20:58:42.424Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T20:58:42.424Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T20:58:42.426Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-03-07T20:58:42.426Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"projektwoche","name":"projektwoche"}
+[debug] [2025-03-07T20:58:43.319Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2025-03-07T20:58:43.320Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2025-03-07T20:58:43.402Z] FirebaseError: Request to https://cloudresourcemanager.googleapis.com/v1/projects had HTTP Error: 409, Requested entity already exists
+    at responseToError (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID projektwoche. Please try again with a unique project ID.
+[debug] [2025-03-07T20:59:04.634Z] ----------------------------------------------------------------------
+[debug] [2025-03-07T20:59:04.637Z] Command:       D:\Benni2\node.exe C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-03-07T20:59:04.638Z] CLI Version:   13.33.0
+[debug] [2025-03-07T20:59:04.638Z] Platform:      win32
+[debug] [2025-03-07T20:59:04.638Z] Node Version:  v22.14.0
+[debug] [2025-03-07T20:59:04.639Z] Time:          Fri Mar 07 2025 21:59:04 GMT+0100 (Mitteleuropäische Normalzeit)
+[debug] [2025-03-07T20:59:04.639Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-07T20:59:04.648Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-07T20:59:04.648Z] > authorizing via signed-in user (benjamin.zschinschky1@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Benni2\Projektwoche
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-03-07T20:59:19.423Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T20:59:19.423Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T20:59:19.425Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-03-07T20:59:19.425Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"projekte","name":"projektwoche"}
+[debug] [2025-03-07T20:59:20.287Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2025-03-07T20:59:20.287Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2025-03-07T20:59:20.367Z] FirebaseError: Request to https://cloudresourcemanager.googleapis.com/v1/projects had HTTP Error: 409, Requested entity already exists
+    at responseToError (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID projekte. Please try again with a unique project ID.
+[debug] [2025-03-07T20:59:57.442Z] ----------------------------------------------------------------------
+[debug] [2025-03-07T20:59:57.446Z] Command:       D:\Benni2\node.exe C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2025-03-07T20:59:57.447Z] CLI Version:   13.33.0
+[debug] [2025-03-07T20:59:57.447Z] Platform:      win32
+[debug] [2025-03-07T20:59:57.447Z] Node Version:  v22.14.0
+[debug] [2025-03-07T20:59:57.447Z] Time:          Fri Mar 07 2025 21:59:57 GMT+0100 (Mitteleuropäische Normalzeit)
+[debug] [2025-03-07T20:59:57.447Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-03-07T20:59:57.456Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-03-07T20:59:57.457Z] > authorizing via signed-in user (benjamin.zschinschky1@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Benni2\Projektwoche
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-03-07T21:00:11.278Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T21:00:11.279Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T21:00:11.280Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-03-07T21:00:11.280Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"projekte-1234","name":"projektwoche"}
+[debug] [2025-03-07T21:00:12.243Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2025-03-07T21:00:12.243Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/cp.5336655840705113781"}
+[debug] [2025-03-07T21:00:12.244Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T21:00:12.244Z] Checked if tokens are valid: true, expires at: 1741384462388
+[debug] [2025-03-07T21:00:12.244Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5336655840705113781 [none]
+[debug] [2025-03-07T21:00:13.100Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5336655840705113781 200
+[debug] [2025-03-07T21:00:13.100Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5336655840705113781 {"name":"operations/cp.5336655840705113781","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","ready":true},"done":true,"error":{"code":9,"message":"Callers must accept Terms of Service","details":[{"@type":"type.googleapis.com/google.rpc.PreconditionFailure","violations":[{"type":"TOS","subject":"cloud","description":"Callers must accept Terms of Service"}]}]}}
+[debug] [2025-03-07T21:00:13.179Z] FirebaseError: Callers must accept Terms of Service
+    at OperationPoller.poll (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\operation-poller.js:24:19)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async createCloudProject (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:213:29)
+    at async createFirebaseProjectAndLog (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\management\projects.js:71:9)
+    at async promptAndCreateNewProject (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:32:12)
+    at async doSetup (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\features\project.js:89:27)
+    at async init (C:\Users\Benni\AppData\Roaming\npm\node_modules\firebase-tools\lib\init\index.js:41:9)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.

@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql');  // Nur einmal importieren
 const cors = require('cors');
 const app = express();
 const PORT = 3000;
@@ -8,16 +8,18 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// Datenbankverbindung
-const connection = mysql.createConnection({
-    host: 'https://74ba-2a03-fc82-2d4-d700-bdd3-e5a-867a-c8b4.ngrok-free.app',  // Hier soll die ngrok-URL rein
-    user: 'root',
-    password: 'gQ4eeRwmXNTKpibYeyXsN5dJaeKdbYXU',
-    database: 'projekte'
-});
+// Erstelle eine Verbindung zur MySQL-Datenbank
 
+const connection = {
+    host: 'dpg-cv5m9prqf0us73epalbg-a', // Host von Render
+    user: 'projekte_op5d_user', // Benutzername von Render
+    password: 'A044JGdfxbBuGnE1OSnNP88K8yb94XIk', // Passwort von Render
+    database: 'projekte_op5d', // Datenbankname von Render
+    port: 5432, // Standard-Port für PostgreSQL
+    ssl: true // SSL ist bei Render erforderlich
+  };
 
-// Verbindung zur Datenbank herstellen
+// Stelle die Verbindung zur Datenbank her
 connection.connect((err) => {
     if (err) {
         console.error('Fehler bei der Verbindung zur Datenbank: ', err);
@@ -26,12 +28,13 @@ connection.connect((err) => {
     console.log('Erfolgreich mit der Datenbank verbunden');
 });
 
-// Middleware für JSON-Parsing
-app.use(express.json());
-
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ message: 'Interner Serverfehler', error: err.toString() });
+// Beispiel für eine einfache Anfrage an die Datenbank
+connection.query('SELECT * FROM users', (err, results) => {
+  if (err) {
+    console.error('Fehler bei der Datenbankabfrage:', err);
+  } else {
+    console.log('Datenbankabfrage erfolgreich:', results);
+  }
 });
 
 // API-Endpoint für Projekte anzeigen
@@ -64,7 +67,6 @@ app.post('/projekte', (req, res) => {
         return res.status(201).json({ message: 'Projekt erfolgreich hinzugefügt!' });
     });
 });
-
 
 // API-Endpoint für die Anmeldung zu einem Projekt
 app.post('/anmelden', (req, res) => {
@@ -101,9 +103,6 @@ app.post('/anmelden', (req, res) => {
     });
 });
 
-
-
-
 // API-Endpoint zum Löschen von Projekten
 app.delete('/projekte/:id', (req, res) => {
     const projektId = req.params.id;
@@ -125,6 +124,7 @@ app.delete('/projekte/:id', (req, res) => {
         return res.status(200).json({ message: 'Projekt erfolgreich gelöscht!' });
     });
 });
+
 // Debugging-Endpoint zum Testen der Antworten
 app.get('/debug', async (req, res) => {
     const response = {
