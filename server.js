@@ -10,11 +10,12 @@ app.use(express.json());
 
 // Datenbankverbindung
 const connection = mysql.createConnection({
-    host: 'localhost',
+    host: 'https://74ba-2a03-fc82-2d4-d700-bdd3-e5a-867a-c8b4.ngrok-free.app',  // Hier soll die ngrok-URL rein
     user: 'root',
-    password: 'Berlin2009',
+    password: 'gQ4eeRwmXNTKpibYeyXsN5dJaeKdbYXU',
     database: 'projekte'
 });
+
 
 // Verbindung zur Datenbank herstellen
 connection.connect((err) => {
